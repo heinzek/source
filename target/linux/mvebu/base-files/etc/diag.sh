@@ -22,6 +22,9 @@ get_status_led() {
 	armada-xp-linksys-mamba)
 		status_led="mamba:white:power"
 		;;
+	rtrom01)
+		status_led="rtrom01:white:power"
+	        ;;
 	esac
 }
 

@@ -28,6 +28,21 @@ define Build/clearfog-bundle
 	gzip -9n -c $@.new > $@
 endef
 
+define Build/omnia-medkit
+	rm -f $@.new
+	$(TAR) -cp --numeric-owner --owner=0 --group=0 --sort=name \
+		$(if $(SOURCE_DATE_EPOCH),--mtime="@$(SOURCE_DATE_EPOCH)") \
+		--file=$@.new -C $(TARGET_DIR)/ .
+	rm -rf $(dir $(IMAGE_KERNEL))boot
+	mkdir -p $(dir $(IMAGE_KERNEL))boot/boot/
+	cp $(IMAGE_KERNEL) $(dir $(IMAGE_KERNEL))boot/boot/zImage
+	cp $(IMAGE_KERNEL).dtb $(dir $(IMAGE_KERNEL))boot/boot/dtb
+	$(TAR) -rp --numeric-owner --owner=0 --group=0 --sort=name \
+		$(if $(SOURCE_DATE_EPOCH),--mtime="@$(SOURCE_DATE_EPOCH)") \
+		--file=$@.new -C $(dir $(IMAGE_KERNEL))boot/ .
+	gzip -9n -c $@.new > $@
+endef
+
 # SD-Card Images:
 # these values are optimized for a 4GB labeled sdcard that actually holds 7744512 sectors of 512 byte
 # MBR:            2048 sectors
@@ -200,5 +215,19 @@ define Device/globalscale-mirabox
   DEVICE_TITLE := Globalscale Mirabox
 endef
 TARGET_DEVICES += globalscale-mirabox
+
+define Device/armada-385-turris-omnia
+  KERNEL_INSTALL := 1
+  KERNEL := dtb | kernel-bin
+  DEVICE_DTS := armada-385-turris-omnia
+  DEVICE_PACKAGES := kmod-mmc kmod-mvsdio kmod-usb3 kmod-usb-storage \
+	kmod-i2c-core kmod-i2c-mv64xxx kmod-thermal-armada
+  DEVICE_TITLE := Turris Omnia
+  IMAGES := medkit.tar.gz
+  IMAGE/medkit.tar.gz := omnia-medkit
+  IMAGE_NAME = $$(IMAGE_PREFIX)-$$(2)
+
+endef
+TARGET_DEVICES += armada-385-turris-omnia
 
 $(eval $(call BuildImage))

@@ -37,6 +37,12 @@ armada-388-clearfog)
 		ucidef_add_switch "switch0" \
 			"0:lan:5" "1:lan:4" "2:lan:3" "3:lan:2" "4:lan:1" "5@eth0" "6:lan:6"
 	;;
+rtrom01)
+        ucidef_set_interfaces_lan_wan "eth0 eth2" "eth1"
+        ucidef_add_switch "switch0" "1" "1"
+        ucidef_add_switch_vlan "switch0" "1" "0 1 2 3 5"
+        ucidef_add_switch_vlan "switch0" "2" "4 6"
+        ;;
 *)
 	ucidef_set_interface_lan "eth0"
 	;;
