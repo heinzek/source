@@ -770,6 +770,9 @@ ar71xx_board_detect() {
 	*"Qihoo 360 C301")
 		name="qihoo-c301"
 		;;
+	*"RE450")
+		name="re450"
+		;;
 	*"RouterBOARD 411/A/AH")
 		name="rb-411"
 		;;
@@ -908,6 +911,9 @@ ar71xx_board_detect() {
 		;;
 	*"TL-WR1043ND v2")
 		name="tl-wr1043nd-v2"
+		;;
+	*"TL-WR1043ND v4")
+		name="tl-wr1043nd-v4"
 		;;
 	*TL-WR2543N*)
 		name="tl-wr2543n"
