@@ -33,6 +33,11 @@ armada-388-clearfog)
 		ucidef_add_switch "switch0" \
 			"0:lan:5" "1:lan:4" "2:lan:3" "3:lan:2" "4:lan:1" "5@eth0" "6:lan:6"
 	;;
+armada-385-turris-omnia)
+	ucidef_set_interfaces_lan_wan "eth0" "eth2"
+        ucidef_add_switch "switch0" \
+		"0:lan:0" "1:lan:1" "2:lan:2" "3:lan:3" "5@eth0" "4:wan" "6@eth2"
+	;;
 *)
 	ucidef_set_interface_lan "eth0"
 	;;

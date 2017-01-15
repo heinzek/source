@@ -36,6 +36,21 @@ define Build/boot-img
 	mcopy -i $@.boot $@.bootscript ::boot.scr
 endef
 
+define Build/omnia-medkit
+	rm -f $@.new
+	$(TAR) -cp --numeric-owner --owner=0 --group=0 --sort=name \
+		$(if $(SOURCE_DATE_EPOCH),--mtime="@$(SOURCE_DATE_EPOCH)") \
+		--file=$@.new -C $(TARGET_DIR)/ .
+	rm -rf $(dir $(IMAGE_KERNEL))boot
+	mkdir -p $(dir $(IMAGE_KERNEL))boot/boot/
+	cp $(IMAGE_KERNEL) $(dir $(IMAGE_KERNEL))boot/boot/zImage
+	cp $(IMAGE_KERNEL).dtb $(dir $(IMAGE_KERNEL))boot/boot/dtb
+	$(TAR) -rp --numeric-owner --owner=0 --group=0 --sort=name \
+		$(if $(SOURCE_DATE_EPOCH),--mtime="@$(SOURCE_DATE_EPOCH)") \
+		--file=$@.new -C $(dir $(IMAGE_KERNEL))boot/ .
+	gzip -9n -c $@.new > $@
+endef
+
 define Build/sdcard-img
 	ROOTFS_SIZE=$$(( $(CONFIG_TARGET_ROOTFS_PARTSIZE) * 1024 * 2 )); \
 	./gen_mvebu_sdcard_img.sh $@ \
@@ -188,5 +203,19 @@ define Device/globalscale-mirabox
   DEVICE_TITLE := Globalscale Mirabox
 endef
 TARGET_DEVICES += globalscale-mirabox
+
+define Device/turris-omnia
+  $(Device/NAND-256K)
+  KERNEL_INSTALL := 1
+  KERNEL := dtb | kernel-bin
+  DEVICE_DTS := armada-385-turris-omnia
+  DEVICE_TITLE := Turris Omnia
+  DEVICE_PACKAGES := kmod-mmc kmod-usb3 kmod-usb-storage kmod-i2c-core \
+	kmod-ath9k kmod-ath10k ath10k-firmware-qca988x
+  IMAGES := medkit.tar.gz
+  IMAGE/medkit.tar.gz := omnia-medkit
+  IMAGE_NAME = $$(IMAGE_PREFIX)-$$(2)
+endef
+TARGET_DEVICES += turris-omnia
 
 $(eval $(call BuildImage))

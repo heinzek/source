@@ -46,6 +46,7 @@ enum {
 enum {
 	MV_PORT_STATUS_FDX		= (1 << 10),
 	MV_PORT_STATUS_LINK		= (1 << 11),
+	MV_PORT_STATUS_PHY_DETECT	= (1 << 12),
 };
 
 enum {
@@ -78,6 +79,8 @@ enum {
 enum {
 	MV_PHYCTL_FC_ENABLE		= (3 << 6),
 	MV_PHYCTL_FC_DISABLE		= (1 << 6),
+	MV_PHYCTL_RGMII_DELAY_TXCLK	= (1 << 14),
+	MV_PHYCTL_RGMII_DELAY_RXCLK	= (1 << 15),
 };
 
 enum {

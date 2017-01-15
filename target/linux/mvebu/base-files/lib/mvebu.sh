@@ -56,6 +56,9 @@ mvebu_board_detect() {
 	*"SolidRun Clearfog A1")
 		name="armada-388-clearfog"
 		;;
+	*"Turris Omnia")
+		name="armada-385-turris-omnia"
+		;;
 	esac
 
 	[ -z "$name" ] && name="unknown"

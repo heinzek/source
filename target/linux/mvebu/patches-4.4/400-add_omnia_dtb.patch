@@ -1,0 +1,12 @@
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 8365e3e..a444db1 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -749,6 +749,7 @@ dtb-$(CONFIG_MACH_ARMADA_38X) += \
+ 	armada-385-linksys-caiman.dtb \
+ 	armada-385-linksys-cobra.dtb \
+ 	armada-385-linksys-shelby.dtb \
++	armada-385-turris-omnia.dts \
+ 	armada-388-clearfog.dtb \
+ 	armada-388-db.dtb \
+ 	armada-388-gp.dtb \
