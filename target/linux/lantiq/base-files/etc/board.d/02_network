@@ -110,6 +110,15 @@ H201L)
 		"0:lan" "1:lan" "2:lan" "3:lan" "4t@eth0"
 	;;
 
+MRL952AKW33)
+	lan_mac=$(mtd_get_mac_ascii ubootconfig ethaddr)
+	wan_mac=$(macaddr_add "$lan_mac" 1)
+	ucidef_add_switch "switch0" \
+	"2:lan" "4:wan" "6@eth0"
+	ucidef_add_switch "switch1" \
+	"0:lan" "1:lan" "2:lan" "3:lan" "6@eth0"
+	;;
+
 P2601HNFX)
 	ucidef_add_switch "switch0" \
 		"0:lan" "1:lan" "2:lan" "3:lan" "5t@eth0"

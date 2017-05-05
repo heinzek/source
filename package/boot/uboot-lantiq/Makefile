@@ -279,6 +279,21 @@ define U-Boot/fb3370_sfspl
   DEPENDS+=@BROKEN
 endef
 
+define U-Boot/mrl952akw33_nor
+  TITLE:=Arcadyan MRL952AKW33 (NOR)
+  BUILD_DEVICES:=MRL952AKW33
+  BUILD_SUBTARGET:=xrx200
+:  DEPS:=@TARGET_lantiq_xrx200
+endef
+
+define U-Boot/mrl952akw33_ram
+  TITLE:=Arcadyan MRL952AKW33 (RAM)
+  BUILD_DEVICES:=MRL952AKW33
+  BUILD_SUBTARGET:=xrx200
+  DDR_SETTINGS:=board/arcadyan/mrl952akw33/ddr_settings.h
+  DEPS:=@TARGET_lantiq_xrx200
+endef
+
 define U-Boot/p2812hnufx_ram
   NAME:=ZyXEL P-2812HNU-Fx (RAM)
   BUILD_SUBTARGET:=xrx200
@@ -347,9 +362,9 @@ UBOOT_TARGETS:= \
 	easy50712_ram easy50712_nor easy50712_norspl \
 	easy80920_ram easy80920_nor easy80920_norspl easy80920_sfspl \
 	fb3370_eva fb3370_ram fb3370_sfspl \
-	p2812hnufx_ram p2812hnufx_nandspl \
-	vgv7510kw22_brn vgv7510kw22_nor vgv7510kw22_ram \
-	vgv7519_brn vgv7519_nor vgv7519_ram
+	mrl952akw33_nor mrl952akw33_ram p2812hnufx_ram \
+	p2812hnufx_nandspl vgv7510kw22_brn vgv7510kw22_nor \
+	vgv7510kw22_ram vgv7519_brn vgv7519_nor vgv7519_ram
 
 define CompressVR9Firmware
 	$(STAGING_DIR_HOST)/bin/lzma e \
