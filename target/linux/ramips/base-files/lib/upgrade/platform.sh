@@ -241,7 +241,8 @@ platform_check_image() {
 	mr200|\
 	tl-wr840n-v4|\
 	tl-wr840n-v5|\
-	tl-wr841n-v13)
+	tl-wr841n-v13|\
+	tl-wr845n-v3)
 		[ "$magic" != "03000000" ] && {
 			echo "Invalid image type."
 			return 1
