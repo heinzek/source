@@ -239,6 +239,7 @@ platform_check_image() {
 	c20|\
 	c20i|\
 	c50|\
+	c50-v3|\
 	mr200|\
 	tl-wr840n-v4|\
 	tl-wr840n-v5|\
